@@ -1,0 +1,48 @@
+<#include "Top.html" />
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">
+                <@compress single_line=true><@getNameByObj active /></@compress>
+            </h4>
+        </div>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <th class="center">ID</th>
+                    <th>健</th>
+                    <th>值</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </thead>
+                <tbody>
+                    <#if (list?? && 0 < list?size)>
+                        <#list list as l>
+                            <tr <#if (9 == l.status)>class="grey"</#if>>
+                                <td class="center">${l.id}</td>
+                                <td>${l.key}</td>
+                                <td>
+                                    <#if ("qrcode" == l.key)>
+                                        <img src="/${l.value}" onerror="this.src='/qrcode.jpg'" width="100" />
+                                    <#else>
+                                        ${l.value}
+                                    </#if>
+                                </td>
+                                <td>${l.remark}</td>
+                                <td><a href="${request.contextPath}/manage/config/edit/${l.id}">修改</a></td>
+                            </tr>
+                        </#list>
+                    <#else>
+                        <#include "NoData.html" />
+                    </#if>
+                </tbody>
+            </table>
+            <div id="pageNav"><span class="condition">共<span class="blue">${count?c}</span>条数据</span><#include "Pager.html" /></div>
+        </div>
+    </div>
+</div>
+
+<#if (tips??)><#include "Tips.html" /></#if>
+
+<#include "Bottom.html" />

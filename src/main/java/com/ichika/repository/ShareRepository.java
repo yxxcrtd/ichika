@@ -1,0 +1,12 @@
+package com.ichika.repository;
+
+import com.ichika.entity.Share;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
+
+
+@Repository
+public interface ShareRepository extends JpaRepository<Share, Long>, JpaSpecificationExecutor<Share> {
+
+}

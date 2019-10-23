@@ -1,0 +1,55 @@
+<#include "Obj.html" />
+
+<div class="animated-modal" style="width: 35%;">
+    <h2 class="header">
+        <span class="blue">${category.name}</span>的子分类
+        <a href="javascript:;" data-fancybox data-type="ajax" data-src="${request.contextPath}/manage/category/sub/edit/${category.id}/0" title="添加子分类">
+            <span class="size_30">&nbsp;+</span>
+        </a>
+    </h2>
+
+    <table id="categorySubListTable" class="table table-hover table-striped">
+        <thead>
+            <th>ID</th>
+            <th>名称</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            <#if (list?? && 0 < list?size)>
+                <#list list as l>
+                    <tr id="tr${l.id}">
+                        <td>${l.id}</td>
+                        <td>${l.name}</td>
+                        <td>
+                            <a href="javascript:;" data-fancybox data-type="ajax" data-src="${request.contextPath}/manage/category/sub/edit/${l.id}/${l.parentId}" title="修改子分类">修改</a>&nbsp;
+                            <a href="javascript:;" id="deleteSubCategory${l.id}">删除</a>
+                            <script>
+                                $("#deleteSubCategory${l.id}").click(function() {
+                                    $.fancyConfirm({
+                                        title     : "删除子分类",
+                                        message   : "您确定要删除当前子分类吗？",
+                                        okButton  : "确 定",
+                                        noButton  : "取 消",
+                                        callback  : function (value) {
+                                            if (value) {
+                                                $.get("${request.contextPath}/manage/category/delete/${l.id}", function(data) {
+                                                    if (200 == data.code) {
+                                                        $.notify({ message: data.message }, { type: "success" });
+                                                        $("#tr${l.id}").remove();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
+                        </td>
+                    </tr>
+                </#list>
+            <#else>
+                <#include "NoData.html" />
+            </#if>
+        </tbody>
+    </table>
+
+</div>

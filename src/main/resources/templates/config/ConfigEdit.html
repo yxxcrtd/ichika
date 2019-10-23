@@ -1,0 +1,55 @@
+<#include "Top.html" />
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="content">
+            <form action="${request.contextPath}/manage/config/save" method="post">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label style="color: #F00;">健：</label>
+                            <@s.formInput "config.key" "class='form-control' disabled" /><@s.showErrors classOrStyle="red blink" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label style="color: #F00;">值：</label>
+                            <#if ("qrcode" == config.key)>
+                                <input type="file" name="qr_file" class="input500"><br>
+                                <#if (config.value?? && 0 < config.value?length)>
+                                    <a href="/${config.value}" target="_blank"><img src="/${config.value}" width="200"></a>
+                                    <@s.formHiddenInput "config.value" />
+                                </#if>
+                            <#else>
+                                <@s.formInput "config.value" "class='form-control' maxLength='16' placeholder='请输入配置项的value'" />
+                            </#if>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>备注：</label>
+                            <@s.formInput "config.remark" "class='form-control' maxLength='64' placeholder='请输入备注'" />
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info btn-fill pull-left">修改配置</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-info btn-fill pull-left" onClick="javascript:history.back();" style="margin-left: 20px;" />返 回</button>
+                <div class="clearFix"></div>
+                <@s.formHiddenInput "config.id" />
+                <@s.formHiddenInput "config.key" />
+            </form>
+
+            <#if (tips??)><#include "Tips.html" /></#if>
+        </div>
+    </div>
+</div>
+
+<#include "Bottom.html" />

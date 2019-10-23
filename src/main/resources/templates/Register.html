@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>入住申请</title>
+        <link rel="stylesheet" href="${request.contextPath}/css/style.css" media="all" />
+    </head>
+
+    <body>
+        <div id="registerContainer">
+            <div id="registerSubContainer">
+                <h3>入住申请</h3>
+                <div id="registerProgress">
+                    <span class="progress1">1</span>&nbsp;&nbsp;<span class="progress1Title">填写申请资料</span>
+                    ------------------------------------
+                    <span class="progress2">2</span>&nbsp;&nbsp;待审核
+                    ------------------------------------
+                    <span class="progress3">3</span>&nbsp;&nbsp;审核成功
+                </div>
+
+                <form id="registerForm" action="${request.contextPath}/register/save" method="post" enctype="multipart/form-data">
+                    <div id="registerBody">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td class="registerItemTitle">商家名称：</td>
+                                <td class="registerItemContent"><@s.formInput "merchant.title" "class='registerInput' maxLength='128' placeholder='请输入商家名称'" /></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle">省份：</td>
+                                <td class="registerItemContent"><input type="text" class="registerInput"></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle">商家地址：</td>
+                                <td class="registerItemContent"><@s.formInput "merchant.address" "class='registerInput' maxLength='128' placeholder='请输入商家地址'" /></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle">联系人：</td>
+                                <td class="registerItemContent"><@s.formInput "merchant.name" "class='registerInput' maxLength='8' placeholder='请输入联系人'" /></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle">联系方式：</td>
+                                <td class="registerItemContent"><@s.formInput "merchant.phone" "class='registerInput' maxLength='11' placeholder='请输入联系方式'" /></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle">商品类别：</td>
+                                <td class="registerItemContent"><@s.formSingleSelect "merchant.kind" categoryMap "class='selectStyle'"/></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle">上传营业执照：</td>
+                                <td class="registerItemContent"><input type="file" id="companyFile" name="companyFile" class="registerInput"></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle">身份证正面：</td>
+                                <td class="registerItemContent"><input type="file" id="idFace" name="idFace" class="registerInput"></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle">身份证反面：</td>
+                                <td class="registerItemContent"><input type="file" id="idBack" name="idBack" class="registerInput"></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle"></td>
+                                <td class="registerItemContent"><input type="checkbox">我已经阅读并同意<a href="#" style="text-decoration: underline !important;">《入驻申请协议》</a></td>
+                            </tr>
+                            <tr>
+                                <td class="registerItemTitle"></td>
+                                <td class="registerItemContent"><button id="register-button" type="submit">提交</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

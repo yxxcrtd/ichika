@@ -1,0 +1,72 @@
+<#include "Obj.html" />
+
+<div class="animated-modal" style="width: 33%;">
+    <h2 class="header">添加子分类</h2>
+
+    <div class="col-md-12" style="padding-left: 0;">
+        <div class="card">
+            <div class="content">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label style="color: #F00;">子分类名称：</label>
+                            <@s.formInput "category.name" "class='form-control' maxLength='13' placeholder='请输入子分类名称'" />
+                            <span id="nameTip" class="blink"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="categorySubmit" type="button" class="btn btn-info btn-fill pull-left">保 存</button>
+                <div class="clearFix"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+$("#categorySubmit").click(function() {
+    $(this).attr("disabled", "true");
+    setTimeout("$('#categorySubmit').removeAttr('disabled')", 3000); // 三秒后显示提交按钮
+
+    var nameNode = $("#name");
+    var nameValue = $.trim(nameNode.val());
+    if ("" == nameValue) {
+        $("#nameTip").html("请输入子分类名称！");
+        nameNode.focus();
+        return false;
+    }
+    var categoryId = ${category.id};
+    var formData = new FormData();
+    formData.append("id", categoryId);
+    formData.append("parentId", ${category.parentId});
+    formData.append("name", nameValue);
+    $.ajax({
+        type: "post",
+        url: "${request.contextPath}/manage/category/sub/save",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(categoryData) {
+            if (200 == categoryData.code) {
+                $.fancybox.close();
+                $.notify({ message: categoryData.message }, { type: "success" });
+
+                var cData = categoryData.data;
+                var updateString = "<a href=\"javascript:;\" data-fancybox data-type=\"ajax\" data-src=\"${request.contextPath}/manage/category/sub/edit/" + cData.id + "/" + cData.parentId + "\" title=\"修改子分类\">修改</a>";
+                var deleteString = "<a href=\"javascript:;\" id=\"deleteSubCategory" + cData.id + "\">删除<\/a>";
+                var scriptString = "<script>$(\"#deleteSubCategory" + cData.id + "\").click(function() { $.fancyConfirm({ title : \"删除子分类\", message : \"您确定要删除当前子分类吗？\", okButton  : \"确 定\", noButton  : \"取 消\", callback  : function (value) { if (value) { $.get(\"${request.contextPath}/manage/category/delete/" + cData.id + "\", function(data) { if (200 == data.code) { $.notify({ message: data.message }, { type: \"success\" }); $(\"#tr" + cData.id + "\").remove(); } }); } } }); });<\/script>";
+                var newRow = "<tr id=\"tr" + cData.id + "\"><td>" + cData.id + "</td><td>" + cData.name + "</td><td>" + updateString + "&nbsp;&nbsp;" + deleteString + scriptString + "</td></tr>";
+                if (0 == categoryId) {
+                    $("#tr0").remove();
+                    $("#categorySubListTable tr:last").after(newRow);
+                } else {
+                    $("#tr" + cData.id).after(newRow);
+                    $("#tr" + cData.id).remove();
+                }
+            }
+        }
+    });
+});
+</script>

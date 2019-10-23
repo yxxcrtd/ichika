@@ -1,0 +1,77 @@
+<#include "Top.html" />
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">
+                <@compress single_line=true><@getNameByObj active /></@compress>
+                <a href="${request.contextPath}/manage/advertisement/edit/0" title="添加广告">
+                    <span class="size_20">&nbsp;+</span>
+                </a>
+
+                <ul class="search_ul">
+                    <li>
+                        <form>
+                            <input type="text" name="k" value="${k}" class="search_input" placeholder="请输入广告标题..." />
+                        </form>
+                    </li>
+                </ul>
+            </h4>
+        </div>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <th>ID</th>
+                    <th>广告标题</th>
+                    <th>广告图片</th>
+                    <th>广告链接</th>
+                    <th>发布时间<br>到期时间</th>
+                    <th>联系人</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </thead>
+                <tbody>
+                    <#if (list?? && 0 < list?size)>
+                        <#list list as l>
+                            <tr>
+                                <td>${l.id}</td>
+                                <td>${l.title}</td>
+                                <td><a href="/advertisement/${l.picture}" data-fancybox><img src="/advertisement/${l.picture}" width="120"></a></td>
+                                <td>
+                                    <a href="${l.link}" target="_blank">${l.link}</a>
+                                </td>
+                                <td>${l.createTime?string('yyyy-MM-dd HH:mm:ss')}<br>${l.endDate?string('yyyy-MM-dd')}</td>
+                                <td>${l.phone}</td>
+                                <td>
+                                    <a href="javascript:;" id="status${l.id}"><@compress single_line=true><@getNewsStatus l.status /></@compress></a>
+                                    <script>
+                                        $("#status${l.id}").click(function() {
+                                            $.get("${request.contextPath}/manage/advertisement/status/${l.id}", function(data) {
+                                                if (200 == data.code) {
+                                                    $.notify({ message: data.data + "成功！" }, { type: "info" });
+                                                    $("#status${l.id}").html(data.data);
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                </td>
+                                <td id="operator{l.id}">
+                                    <span id="icon-edit${l.id}">
+                                        <a href="${request.contextPath}/manage/advertisement/edit/${l.id}">编辑</a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </#list>
+                    <#else>
+                        <#include "NoData.html" />
+                    </#if>
+                </tbody>
+            </table>
+            <div id="pageNav"><span class="condition">共<span class="blue">${count?c}</span>条数据</span><#include "Pager.html" /></div>
+        </div>
+    </div>
+</div>
+
+<#if (tips??)><#include "Tips.html" /></#if>
+
+<#include "Bottom.html" />

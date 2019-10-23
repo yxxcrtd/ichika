@@ -1,0 +1,13 @@
+<script>
+    $(function() {
+        $.notify({ message: "${tips}" }, {
+	        delay: 1500,
+            type: "${type?default('success')}",
+            timer: ${timer?default(1300)?c},
+            animate: {
+                enter: "animated fadeInRight",
+                exit: "animated fadeOutRight"
+            }
+        });
+    });
+</script>

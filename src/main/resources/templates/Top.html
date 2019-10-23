@@ -1,0 +1,118 @@
+<#include "Obj.html" />
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <title><@compress single_line=true><@getNameByObj active /></@compress></title>
+        <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/animate.min.css" />
+        <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/style.css?${version}" />
+        <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/iconfont.css" />
+        <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/jquery.fancybox.3.5.2.min.css" />
+        <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/jquery-ui.css" />
+
+        <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/js/jquery.fancybox.3.5.2.min.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/js/notify.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/js/fancyConfirm.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/js/chart.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/js/utils.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/js/jquery.peity.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/js/jquery-ui.js"></script>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <#if (wx?? && "1" == wx)>
+
+            <#else>
+                <div class="sidebar" data-color="default">
+                    <div class="sidebar-wrapper">
+                        <div class="logo">
+                            <a href="${request.contextPath}/manage">
+                                <span class="simple-text"><i class="iconfont iconlogo"></i></span>
+                            </a>
+                        </div>
+                        <ul class="nav">
+                            <li <#if ("index" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage">
+                                    <i class="iconfont iconshouye"></i><p>首页</p>
+                                </a>
+                            </li>
+                            <li <#if ("category" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/category">
+                                    <i class="iconfont iconfenlei"></i><p>分类管理</p>
+                                </a>
+                            </li>
+                            <li <#if ("video" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/video">
+                                    <i class="iconfont iconshipinguanli"></i><p>视频管理</p>
+                                </a>
+                            </li>
+                            <li <#if ("video1" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/video">
+                                    <i class="iconfont iconpinglunguanli"></i><p>评论管理</p>
+                                </a>
+                            </li>
+                            <li <#if ("advertisement" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/advertisement">
+                                    <i class="iconfont iconguanggaoguanli"></i><p>广告管理</p>
+                                </a>
+                            </li>
+                            <li <#if ("video1" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/video">
+                                    <i class="iconfont iconyonghuguanli"></i><p>用户管理</p>
+                                </a>
+                            </li>
+                            <li <#if ("config" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/config">
+                                    <i class="iconfont iconxitongpeizhi"></i><p>系统配置</p>
+                                </a>
+                            </li>
+                            <li <#if ("video1" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/video">
+                                    <i class="iconfont icondianzanguanli"></i><p>点赞管理</p>
+                                </a>
+                            </li>
+                            <li <#if ("video1" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/video">
+                                    <i class="iconfont iconzijinguanli"></i><p>资金管理</p>
+                                </a>
+                            </li>
+                            <li <#if ("news" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/news">
+                                    <i class="iconfont iconxitongxiaoxi"></i><p>系统消息</p>
+                                </a>
+                            </li>
+                            <li <#if ("message" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/manage/news">
+                                    <i class="iconfont iconshanghuguanli"></i><p>商户管理</p>
+                                </a>
+                            </li>
+                            <li <#if ("video1" == active)>class="active"</#if>>
+                                <a href="${request.contextPath}/swagger-ui.html" target="_blank">
+                                    <i class="iconfont iconjiekouguanli"></i><p>接口列表</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-background"></div>
+                </div>
+            </#if>
+
+            <div class="main-panel">
+                <#if (wx?? && "1" == wx)>
+
+                <#else>
+                    <#if ("0" != wx)>
+                        <#include "TopNav.html" />
+                    </#if>
+                </#if>
+
+                <div class="content" <#if (wx?? && "1" == wx)>style="padding-bottom: 50px;"</#if>>
+                    <div class="container-fluid">
+                        <div class="row">

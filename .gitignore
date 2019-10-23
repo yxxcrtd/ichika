@@ -1,0 +1,34 @@
+# Intellij IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+
+*.sql
+deploy
+Dockerfile
+
+# Mac
+.DS_Store
+_/
+
+
+# Maven
+target/
+*.jar
+*.war
+*.zip
+*.tar
+*.tar.gz
+
+
+# Other
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+catalina.base_IS_UNDEFINED
+Thumbs.db
+.springBeans
