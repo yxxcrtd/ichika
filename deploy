@@ -1,0 +1,7 @@
+mvn clean package
+scp app/target/ROOT.war root@47.100.219.142:/home/tomcat/webapps
+
+/home/tomcat/bin/shutdown.sh
+/home/tomcat/bin/startup.sh
+tailf /home/tomcat/logs/catalina.out
+rm -rf work/ webapps/* logs/*

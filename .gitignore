@@ -5,9 +5,6 @@
 *.ipr
 
 
-*.sql
-deploy
-Dockerfile
 
 # Mac
 .DS_Store
