@@ -19,13 +19,3 @@ target/
 *.tar
 *.tar.gz
 
-
-# Other
-*.log
-*.cache
-*.diff
-*.patch
-*.tmp
-catalina.base_IS_UNDEFINED
-Thumbs.db
-.springBeans
