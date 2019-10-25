@@ -1,6 +1,6 @@
 package com.ichika.controller;
 
-import com.ichika.entity.Merchant;
+import com.ichika.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +25,14 @@ public class RegisterController extends BaseController {
     @GetMapping("")
     ModelAndView register() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("merchant", new Merchant());
+        mav.addObject("user", new User());
         mav.addObject("categoryMap", getCategoryMap());
         mav.setViewName("Register");
         return mav;
     }
 
     @PostMapping("save")
-    ModelAndView save(@ModelAttribute("merchant") @Valid Merchant merchant, BindingResult result,
+    ModelAndView save(@ModelAttribute("user") @Valid User user, BindingResult result,
                       @RequestParam(value = "companyFile", required = false) MultipartFile companyFile,
                       @RequestParam(value = "idFace", required = false) MultipartFile idFace,
                       @RequestParam(value = "idBack", required = false) MultipartFile idBack) throws Exception {
@@ -43,7 +43,7 @@ public class RegisterController extends BaseController {
             companyFileName = uploadFile(companyFile, UPLOAD_PATH + "companyFile/");
             log.info("上传的营业执照：{}", companyFileName);
             if (!"".equals(companyFileName) && null != companyFileName) {
-                merchant.setCompanyFile(companyFileName);
+                user.setCompanyFile(companyFileName);
             }
         }
 
@@ -52,7 +52,7 @@ public class RegisterController extends BaseController {
             idFaceName = uploadFile(idFace, UPLOAD_PATH + "idFace/");
             log.info("上传的身份证正面：{}", idFaceName);
             if (!"".equals(idFaceName) && null != idFaceName) {
-                merchant.setIdFace(idFaceName);
+                user.setIdFace(idFaceName);
             }
         }
 
@@ -61,15 +61,14 @@ public class RegisterController extends BaseController {
             idBackName = uploadFile(idBack, UPLOAD_PATH + "idBack/");
             log.info("上传的身份证正面：{}", idBackName);
             if (!"".equals(idBackName) && null != idBackName) {
-                merchant.setIdBack(idBackName);
+                user.setIdBack(idBackName);
             }
         }
 
         try {
 
-
-            merchant.setPassword(generateCode());
-            merchantService.save(merchant);
+            user.setPassword(generateCode());
+            userService.save(user);
 
         } catch (Exception e) {
             e.printStackTrace();

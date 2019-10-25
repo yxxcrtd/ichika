@@ -43,61 +43,74 @@
                                     <i class="iconfont iconshouye"></i><p>首页</p>
                                 </a>
                             </li>
-                            <li <#if ("category" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/manage/category">
-                                    <i class="iconfont iconfenlei"></i><p>分类管理</p>
-                                </a>
-                            </li>
+
+                            <#if ("admin" == user.phone)>
+                                <li <#if ("category" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/manage/category">
+                                        <i class="iconfont iconfenlei"></i><p>分类管理</p>
+                                    </a>
+                                </li>
+                            <#else>
+                                <li>
+                                    <a href="${request.contextPath}/manage/video" target="_blank">
+                                        <i class="iconfont iconyonghuguanli"></i><p>个人资料</p>
+                                    </a>
+                                </li>
+                            </#if>
+
                             <li <#if ("video" == active)>class="active"</#if>>
                                 <a href="${request.contextPath}/manage/video">
                                     <i class="iconfont iconshipinguanli"></i><p>视频管理</p>
                                 </a>
                             </li>
-                            <li <#if ("video1" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/manage/video">
-                                    <i class="iconfont iconpinglunguanli"></i><p>评论管理</p>
-                                </a>
-                            </li>
-                            <li <#if ("advertisement" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/manage/advertisement">
-                                    <i class="iconfont iconguanggaoguanli"></i><p>广告管理</p>
-                                </a>
-                            </li>
-                            <li <#if ("video1" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/manage/video">
-                                    <i class="iconfont iconyonghuguanli"></i><p>用户管理</p>
-                                </a>
-                            </li>
-                            <li <#if ("config" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/manage/config">
-                                    <i class="iconfont iconxitongpeizhi"></i><p>系统配置</p>
-                                </a>
-                            </li>
-                            <li <#if ("video1" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/manage/video">
-                                    <i class="iconfont icondianzanguanli"></i><p>点赞管理</p>
-                                </a>
-                            </li>
-                            <li <#if ("video1" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/manage/video">
-                                    <i class="iconfont iconzijinguanli"></i><p>资金管理</p>
-                                </a>
-                            </li>
-                            <li <#if ("news" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/manage/news">
-                                    <i class="iconfont iconxitongxiaoxi"></i><p>系统消息</p>
-                                </a>
-                            </li>
-                            <li <#if ("message" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/manage/news">
-                                    <i class="iconfont iconshanghuguanli"></i><p>商户管理</p>
-                                </a>
-                            </li>
-                            <li <#if ("video1" == active)>class="active"</#if>>
-                                <a href="${request.contextPath}/swagger-ui.html" target="_blank">
-                                    <i class="iconfont iconjiekouguanli"></i><p>接口列表</p>
-                                </a>
-                            </li>
+
+                            <#if ("admin" == user.phone)>
+                                <li <#if ("video1" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/manage/video">
+                                        <i class="iconfont iconpinglunguanli"></i><p>评论管理</p>
+                                    </a>
+                                </li>
+                                <li <#if ("advertisement" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/manage/advertisement">
+                                        <i class="iconfont iconguanggaoguanli"></i><p>广告管理</p>
+                                    </a>
+                                </li>
+                                <li <#if ("config" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/manage/config">
+                                        <i class="iconfont iconxitongpeizhi"></i><p>系统配置</p>
+                                    </a>
+                                </li>
+                                <li <#if ("video1" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/manage/video">
+                                        <i class="iconfont icondianzanguanli"></i><p>点赞管理</p>
+                                    </a>
+                                </li>
+                                <li <#if ("video1" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/manage/video">
+                                        <i class="iconfont iconzijinguanli"></i><p>资金管理</p>
+                                    </a>
+                                </li>
+                                <li <#if ("news" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/manage/news">
+                                        <i class="iconfont iconxitongxiaoxi"></i><p>系统消息</p>
+                                    </a>
+                                </li>
+                                <li <#if ("video1" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/manage/user">
+                                        <i class="iconfont iconyonghuguanli"></i><p>用户管理</p>
+                                    </a>
+                                </li>
+                                <li <#if ("message" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/manage/user">
+                                        <i class="iconfont iconshanghuguanli"></i><p>商户管理</p>
+                                    </a>
+                                </li>
+                                <li <#if ("video1" == active)>class="active"</#if>>
+                                    <a href="${request.contextPath}/swagger-ui.html" target="_blank">
+                                        <i class="iconfont iconjiekouguanli"></i><p>接口列表</p>
+                                    </a>
+                                </li>
+                            </#if>
                         </ul>
                     </div>
                     <div class="sidebar-background"></div>

@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static com.ichika.utils.Constants.CATEGORY_KEY;
+import static com.ichika.utils.Constants.LOGIN_SESSION_KEY;
 
 /**
  * Category Controller
@@ -38,6 +39,7 @@ public class CategoryController extends BaseController {
         mav.addObject("active", "category");
         mav.setViewName("category/CategoryList");
         mav.addObject("tips", request.getSession().getAttribute(CATEGORY_KEY));
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 
@@ -45,7 +47,7 @@ public class CategoryController extends BaseController {
      * Edit
      */
     @GetMapping("edit/{id:[\\d]+}")
-    ModelAndView edit(@PathVariable(value = "id") Long id) {
+    ModelAndView edit(HttpServletRequest request, @PathVariable(value = "id") Long id) {
         ModelAndView mav = new ModelAndView();
 
         if (0 == id) {
@@ -58,6 +60,7 @@ public class CategoryController extends BaseController {
         mav.addObject("category", null == category ? new Category() : category);
         mav.setViewName("category/CategoryEdit");
         mav.addObject("active", "category");
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 
@@ -78,7 +81,6 @@ public class CategoryController extends BaseController {
         try {
             categoryService.save(category);
             request.getSession().setAttribute(CATEGORY_KEY, "分类" + (0 == category.getId() ? "保存" : "修改") + "成功！");
-            request.getSession().setMaxInactiveInterval(3);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

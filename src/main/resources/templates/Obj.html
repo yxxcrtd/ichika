@@ -14,6 +14,15 @@
 	</#if>
 </#macro>
 
+<#macro getUserStatus obj>
+	<#if obj??>
+		<#if (0 == obj)><span class="red">待审核</span>
+			<#elseif (1 == obj)><span class="green">正常</span>
+			<#else>Oops！
+		</#if>
+	</#if>
+</#macro>
+
 <#macro getVideoStatus obj>
 	<#if obj??>
 		<#if (0 == obj)><span class="yellow_bg">待审核</span>

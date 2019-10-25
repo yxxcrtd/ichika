@@ -5,7 +5,6 @@ import com.ichika.entity.Category;
 import com.ichika.entity.Comment;
 import com.ichika.entity.Config;
 import com.ichika.entity.Favorite;
-import com.ichika.entity.Merchant;
 import com.ichika.entity.News;
 import com.ichika.entity.Share;
 import com.ichika.entity.User;
@@ -15,7 +14,6 @@ import com.ichika.service.CategoryService;
 import com.ichika.service.CommentService;
 import com.ichika.service.ConfigService;
 import com.ichika.service.FavoriteService;
-import com.ichika.service.MerchantService;
 import com.ichika.service.NewsService;
 import com.ichika.service.ShareService;
 import com.ichika.service.UserService;
@@ -54,8 +52,6 @@ public class BaseController {
 
     protected Advertisement advertisement;
 
-    protected Merchant merchant;
-
     @Autowired
     protected UserService userService;
 
@@ -82,9 +78,6 @@ public class BaseController {
 
     @Autowired
     protected AdvertisementService advertisementService;
-
-    @Autowired
-    protected MerchantService merchantService;
 
     protected Config getConfig(String key) {
         return configService.findByKey(key);

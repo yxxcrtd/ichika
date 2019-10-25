@@ -1,0 +1,87 @@
+<#include "Top.html" />
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">
+                <@compress single_line=true><@getNameByObj active /></@compress>
+                <#if (1 == user.isAdmin)>
+                    <a href="${request.contextPath}/manage/project/edit/0">
+                        <span class="size_20">&nbsp;+</span>
+                    </a>
+                </#if>
+
+                <ul class="search_ul">
+                    <li>
+                        <form>
+                            <input type="text" name="k" value="${k}" class="search_input" placeholder="请输入商户名称、商户手机、商户姓名..." />
+                        </form>
+                    </li>
+                </ul>
+            </h4>
+        </div>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <th class="center">ID</th>
+                    <th>商户姓名<br />商户手机号</th>
+                    <th>商户名称<br />商户地址</th>
+                    <th>营业执照</th>
+                    <th>身份证正面</th>
+                    <th>身份证反面</th>
+                    <th>状态</th>
+                    <th>入驻时间</th>
+                </thead>
+                <tbody>
+                    <#if (list?? && 0 < list?size)>
+                        <#list list as l>
+                            <tr>
+                                <td>${l.id}</td>
+                                <td>${l.name}<br />${l.phone}</td>
+                                <td>${l.title}<br />${l.address}</td>
+                                <td><#if (l.companyFile?? && 0 < l.companyFile?length)><a href="/companyFile/${l.companyFile}" data-fancybox><img src="/companyFile/${l.companyFile}" width="150"></a></#if></td>
+                                <td><#if (l.idFace?? && 0 < l.idFace?length)><a href="/idFace/${l.idFace}" data-fancybox><img src="/idFace/${l.idFace}" width="150"></a></#if></td>
+                                <td><#if (l.idBack?? && 0 < l.idBack?length)><a href="/idBack/${l.idBack}" data-fancybox><img src="/idBack/${l.idBack}" width="150"></a></#if></td>
+                                <td id="audit${l.id}">
+                                    <#if (0 == l.status)>
+                                        <a href="javascript:;" id="userAudit${l.id}" style="text-decoration: underline !important; text-decoration-color: #f00 !important;"><@compress single_line=true><@getUserStatus l.status /></@compress></a>
+                                        <script>
+                                            $("#userAudit${l.id}").click(function() {
+                                                $.fancyConfirm({
+                                                    title     : "用户审核",
+                                                    message   : "您确定要审核当前商户吗？",
+                                                    okButton  : "确 定",
+                                                    noButton  : "取 消",
+                                                    callback  : function (value) {
+                                                        if (value) {
+                                                            $.get("${request.contextPath}/manage/user/audit/${l.id}", function(data) {
+                                                                if (200 == data.code) {
+                                                                    $.notify({ message: data.message }, { type: "success" });
+                                                                    $("#audit${l.id}").html("<span class='green'>正常</span>");
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    <#else>
+                                        <@compress single_line=true><@getUserStatus l.status /></@compress>
+                                    </#if>
+                                </td>
+                                <td>${l.createTime}</td>
+                            </tr>
+                        </#list>
+                    <#else>
+                        <#include "NoData.html" />
+                    </#if>
+                </tbody>
+            </table>
+            <div id="pageNav"><span class="condition">共<span class="blue">${count?c}</span>条数据</span><#include "Pager.html" /></div>
+        </div>
+    </div>
+</div>
+
+<#if (tips??)><#include "Tips.html" /></#if>
+
+<#include "Bottom.html" />

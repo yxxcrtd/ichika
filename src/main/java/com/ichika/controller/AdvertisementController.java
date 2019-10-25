@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import static com.ichika.utils.Constants.LOGIN_SESSION_KEY;
 import static com.ichika.utils.Constants.NEWS_KEY;
 import static com.ichika.utils.Constants.PAGE_SIZE;
 import static com.ichika.utils.FileUtil.uploadFile;
@@ -51,6 +52,7 @@ public class AdvertisementController extends BaseController {
         mav.addObject("active", "advertisement");
         mav.setViewName("advertisement/AdvertisementList");
         mav.addObject("tips", request.getSession().getAttribute(NEWS_KEY));
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 
@@ -58,7 +60,7 @@ public class AdvertisementController extends BaseController {
      * Edit
      */
     @GetMapping("edit/{id:[\\d]+}")
-    ModelAndView edit(@PathVariable(value = "id") Long id) {
+    ModelAndView edit(HttpServletRequest request, @PathVariable(value = "id") Long id) {
         ModelAndView mav = new ModelAndView();
 
         if (0 == id) {
@@ -70,6 +72,7 @@ public class AdvertisementController extends BaseController {
         mav.addObject("obj", null == advertisement ? new Advertisement() : advertisement);
         mav.setViewName("advertisement/AdvertisementEdit");
         mav.addObject("active", "advertisement");
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 
@@ -99,7 +102,6 @@ public class AdvertisementController extends BaseController {
         try {
             Advertisement advertisementDb = advertisementService.save(advertisement);
             request.getSession().setAttribute(NEWS_KEY, "广告" + (0 == advertisement.getId() ? "保存" : "修改") + "成功！");
-            request.getSession().setMaxInactiveInterval(3);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

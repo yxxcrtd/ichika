@@ -49,7 +49,7 @@ public class LoginController extends BaseController {
                 redirectAttributes.addFlashAttribute("tips", LOGIN_USERNAME_OR_PASSWORD_WRONG);
                 return new ModelAndView("redirect:/login");
             } else {
-                request.getSession().setAttribute(LOGIN_SESSION_KEY, u);
+                request.getSession().setAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId(), u);
                 log.info("用户：{} 登录成功！", u.getPhone());
             }
         }

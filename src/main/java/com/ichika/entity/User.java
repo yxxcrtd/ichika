@@ -24,7 +24,19 @@ public class User {
 
     private String password;
 
-    private String nickname;
+    private String title;
+
+    private String address;
+
+    private String name;
+
+    private int kind;
+
+    private String companyFile;
+
+    private String idFace;
+
+    private String idBack;
 
     private int status;
 

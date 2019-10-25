@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static com.ichika.utils.Constants.CONFIG_KEY;
+import static com.ichika.utils.Constants.LOGIN_SESSION_KEY;
 
 /**
  * Config Controller
@@ -37,6 +38,7 @@ public class ConfigController extends BaseController {
         mav.addObject("active", "config");
         mav.setViewName("config/ConfigList");
         mav.addObject("tips", request.getSession().getAttribute(CONFIG_KEY));
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 
@@ -49,6 +51,7 @@ public class ConfigController extends BaseController {
         mav.addObject("config", configService.findById(id));
         mav.addObject("active", "config");
         mav.setViewName("config/ConfigEdit");
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 
@@ -68,7 +71,6 @@ public class ConfigController extends BaseController {
         try {
             configService.save(config);
             request.getSession().setAttribute(CONFIG_KEY, "修改成功！");
-            request.getSession().setMaxInactiveInterval(3);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

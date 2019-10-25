@@ -16,12 +16,12 @@ public class LoginIntercepter extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(LOGIN_SESSION_KEY);
+        User user = (User) session.getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId());
         if(null == user) {
             response.sendRedirect("/login");
             return false;
         }
-        request.setAttribute(LOGIN_SESSION_KEY, user);
+        request.setAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId(), user);
         return true;
     }
 

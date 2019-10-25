@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.ichika.utils.Constants.LOGIN_SESSION_KEY;
 import static com.ichika.utils.Constants.PAGE_SIZE;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
@@ -41,6 +42,7 @@ public class VideoController extends BaseController {
         mav.addObject("list", pages.getContent());
         mav.addObject("active", "video");
         mav.setViewName("video/VideoList");
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 

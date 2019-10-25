@@ -13,8 +13,8 @@ spring:
     http:
         multipart:
             enabled: false
-#            location: /Users/young/Desktop/ichika/
-            location: /home/file/
+            location: /Users/young/Desktop/ichika/
+#            location: /home/file/
     servlet:
         multipart:
             max-file-size: 200MB

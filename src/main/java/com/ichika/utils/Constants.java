@@ -16,6 +16,7 @@ public class Constants {
     public static final String CONFIG_KEY = "config_key";
     public static final String CATEGORY_KEY = "category_key";
     public static final String NEWS_KEY = "news_key";
+    public static final String USER_AUDIT_KEY = "user_audit_key";
     public static final String LOGIN_USERNAME_EMPTY = "用户名不能为空！";
     public static final String LOGIN_PASSWORD_EMPTY = "密码不能为空！";
     public static final String LOGIN_USERNAME_OR_PASSWORD_WRONG = "用户名或密码不正确！";

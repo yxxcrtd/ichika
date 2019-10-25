@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import static com.ichika.utils.Constants.LOGIN_SESSION_KEY;
 import static com.ichika.utils.Constants.NEWS_KEY;
 import static com.ichika.utils.Constants.PAGE_SIZE;
 import static org.springframework.data.domain.Sort.Direction.ASC;
@@ -49,6 +50,7 @@ public class NewsController extends BaseController {
         mav.addObject("active", "news");
         mav.setViewName("news/NewsList");
         mav.addObject("tips", request.getSession().getAttribute(NEWS_KEY));
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 
@@ -56,7 +58,7 @@ public class NewsController extends BaseController {
      * Edit
      */
     @GetMapping("edit/{id:[\\d]+}")
-    ModelAndView edit(@PathVariable(value = "id") Long id) {
+    ModelAndView edit(HttpServletRequest request, @PathVariable(value = "id") Long id) {
         ModelAndView mav = new ModelAndView();
 
         if (0 == id) {
@@ -68,6 +70,7 @@ public class NewsController extends BaseController {
         mav.addObject("news", null == news ? new News() : news);
         mav.setViewName("news/NewsEdit");
         mav.addObject("active", "news");
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 
@@ -88,7 +91,6 @@ public class NewsController extends BaseController {
         try {
             News newsDb = newsService.save(news);
             request.getSession().setAttribute(NEWS_KEY, "系统消息" + (0 == news.getId() ? "保存" : "修改") + "成功！");
-            request.getSession().setMaxInactiveInterval(3);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

@@ -22,32 +22,18 @@ CREATE TABLE t_user (
     id                  serial                  not null,                               -- 主键ID
     phone               varchar(11)             not null,                               -- 手机
     password            varchar(32)             not null,                               -- 密码
-    nickname            varchar(64)             not null,                               -- 昵称
-	status              int2                    not null default 0,                     -- 用户状态：0-正常；1-非正常
-    create_time         timestamptz             not null default now(),                 -- 加入时间
+    title               varchar(256)            null,                                   -- 商户名称
+    address             varchar(256)            null,                                   -- 商户地址
+    name                varchar(16)             null,                                   -- 联系人
+    kind                int                     not null default 0,                     -- 商品类型
+    company_file        varchar(22)             null,                                   -- 营业执照
+    id_face             varchar(22)             null,                                   -- 身份证正面图片（有头像的一面）
+    id_back             varchar(22)             null,                                   -- 身份证反面图片（有发证机关的一面）
+	status              int2                    not null default 0,                     -- 用户状态：0-待审核；1-正常
+    create_time         timestamptz             not null default now(),                 -- 创建时间
     CONSTRAINT pk_t_user PRIMARY KEY (id)
 );
-INSERT INTO t_user (phone, password, nickname) VALUES ('admin', '3a0e57b1b65ec0a5dbe43d310c002d33', 'admin');
-
-
-
--- 商户
-DROP TABLE IF EXISTS t_merchant;
-CREATE TABLE t_merchant (
-    id                  serial                  not null,                               -- 主键ID
-    title               varchar(256)            not null,                               -- 商户名称
-    address             varchar(256)            not null,                               -- 商户地址
-    name                varchar(16)             not null,                               -- 联系人
-    phone               varchar(11)             not null,                               -- 手机
-    password            varchar(32)             not null,                               -- 密码
-    kind                int                     not null,                               -- 商品类型
-    company_file        varchar(22)             not null,                               -- 营业执照
-    id_face             varchar(22)             not null,                               -- 身份证正面图片（有头像的一面）
-    id_back             varchar(22)             not null,                               -- 身份证反面图片（有发证机关的一面）
-	status              int2                    not null default 0,                     -- 用户状态：0-待审核；1-审核成功
-    create_time         timestamptz             not null default now(),                 -- 加入时间
-    CONSTRAINT pk_t_merchant PRIMARY KEY (id)
-);
+INSERT INTO t_user (phone, password, name, status) VALUES ('admin', '3a0e57b1b65ec0a5dbe43d310c002d33', '系统管理员', 1);
 
 
 
@@ -200,7 +186,7 @@ CREATE TABLE t_config (
     CONSTRAINT pk_t_config PRIMARY KEY (id)
 );
 INSERT INTO t_config (key, value, remark) VALUES ('user_video_audit', '0', '普通用户视频是否需要审核（0：不用审核直接上线；1：要审核）');
-INSERT INTO t_config (key, value, remark) VALUES ('customer_video_audit', '0', '商户视频是否需要审核（0：不用审核直接上线；1：要审核）');
+INSERT INTO t_config (key, value, remark) VALUES ('merchant_video_audit', '0', '商户视频是否需要审核（0：不用审核直接上线；1：要审核）');
 
 
 

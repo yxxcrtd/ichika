@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.ichika.utils.Constants.LOGIN_SESSION_KEY;
+
 
 @Slf4j
 @RestController
@@ -17,8 +19,9 @@ public class ManageController extends BaseController {
     @GetMapping("")
     ModelAndView manage(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("Index");
+        mav.setViewName("Manage");
         mav.addObject("active", "index");
+        mav.addObject("user", request.getSession().getAttribute(LOGIN_SESSION_KEY + request.getRequestedSessionId()));
         return mav;
     }
 
