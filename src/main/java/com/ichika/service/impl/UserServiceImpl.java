@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService {
         try {
             User user = userRepository.getOne(id);
             user.setStatus(1);
-            // 发短信告知原始密码，这里暂时默认是123456 todo
             user.setPassword(MD5.toMD5("123456" + LOGIN_USERNAME_SALT));
             userRepository.save(user);
             return resultSuccess("审核成功");
